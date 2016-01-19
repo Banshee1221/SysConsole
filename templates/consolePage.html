@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="{{ url_for('static', filename='css/google_icons.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/materialize.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/console.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <title>GLaDOS</title>
+</head>
+<body>
+    <div id="blurcont">
+        <img id="bluree" src="{{ wallpaper|safe }}" >
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/console.js') }}"></script>
+
+    <div class="container">
+        <div class="row">
+            <div class="col l4 m6 s12">
+                <div class="card" style="margin: 10px auto;">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="{{ url_for('static', filename='img/svn.png') }}">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Add SVN User<i class="material-icons right">more_vert</i></span>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Add SVN User<i class="material-icons right">close</i></span>
+
+                        <div class="row">
+                            <form action="/consolePage/svnAdd" id="svnForm" class="col s12" method="post">
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <input name="first_name" id="first_name" type="text" class="validate" required>
+                                        <label for="first_name">First Name</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <input name="last_name" id="last_name" type="text" class="validate" required>
+                                        <label for="last_name">Last Name</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input name="password" id="password" type="password" class="validate" required>
+                                        <label for="password">Password</label>
+                                    </div>
+                                </div>
+                            </form>
+                            <button style="float:right;"class="waves-effect waves-light btn" type="submit" form="svnForm" value="Submit">Submit</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col l4 m6 s12">
+                <div class="card" style="margin: 10px auto;">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="{{ url_for('static', filename='img/svn.png') }}">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Passwd Change<i class="material-icons right">more_vert</i></span>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Passwd Change<i class="material-icons right">close</i></span>
+
+                        <div class="row">
+                            <form action="/consolePage/svnChange" id="svnChange" class="col s12" method="post">
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input name="username" id="username" type="text" class="validate" required>
+                                        <label for="first_name">Username</label>
+                                    </div>
+                                </div>
+                            </form>
+                            <button style="float:right;"class="waves-effect waves-light btn" type="submit" form="svnChange" value="Submit">Search</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col l4 m6 s12">
+                <div class="card" style="margin: 10px auto;">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="{{ url_for('static', filename='img/git.png') }}">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Add Key to Git-01<i class="material-icons right">more_vert</i></span>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Add Key to Git-01<i class="material-icons right">close</i></span>
+
+                        <div class="row">
+                            <form id="git01" class="col s12">
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <textarea id="textarea1" class="materialize-textarea"></textarea>
+                                        <label for="textarea1">Public Key</label>
+                                    </div>
+                                </div>
+                            </form>
+                            <button style="float:right;"class="waves-effect waves-light btn" type="submit" form="git01" value="Submit">Submit</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col l4 m6 s12">
+                <div class="card" style="margin: 10px auto;">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="{{ url_for('static', filename='img/git.png') }}">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Add Key to Git-02<i class="material-icons right">more_vert</i></span>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Add Key to Git-02<i class="material-icons right">close</i></span>
+
+                        <div class="row">
+                            <form id="git02" class="col s12">
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <textarea id="textarea1" class="materialize-textarea"></textarea>
+                                        <label for="textarea1">Public Key</label>
+                                    </div>
+                                </div>
+                            </form>
+                            <button style="float:right;"class="waves-effect waves-light btn" type="submit" form="git02" value="Submit">Submit</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+html,body {
+    height: 100% !important;
+}
+
+#blurcont {
+    position:fixed;
+    height:100%;
+    width: 100%;
+    z-index: -1;
+}
+
+#bluree {
+    height: 100%;
+    width: 100%;
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    -moz-filter: blur(8px);
+    -o-filter: blur(8px);
+    -ms-filter: blur(8px);
+
+    transform: scale(1.1);
+    /*filter: blur(6px); height: 100%;*/
+}

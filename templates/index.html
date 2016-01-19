@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html style="cursor: pointer;" lang="en">
+<head>
+    <link href="{{ url_for('static', filename='css/google_icons.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/extra.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/materialize.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <title>GLaDOS</title>
+</head>
+<body>
+    <div id="blurcont">
+        <img id="bluree" src="{{ wallpaper|safe }}" >
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/extra.js') }}"></script>
+
+    <div id="wrapper-align" class="container valign-wrapper">
+        <div id="shrink" class="valign center-align">
+            <p class="grey-text text-darken-4 lineFix" style="font-size: 50px;">“</p>
+            <p class="grey-text text-darken-4" style="font-size: 20px;" id="quote"></p>
+            <p class="grey-text text-darken-4 lineFix" style="font-size: 50px;">”</p>
+            <p id="author" class="grey-text text-darken-4" style="font-size: 15px; float: right"></p>
+        </div>
+
+
+        <script type="text/javascript">
+            function parseQuote(response)
+            {
+                document.getElementById("quote").innerHTML = response.quoteText;
+                document.getElementById("author").innerHTML = " - " + response.quoteAuthor;
+            }
+        </script>
+
+        <script type="text/javascript" src="http://api.forismatic.com/api/1.0/?method=getQuote&format=jsonp&jsonp=parseQuote&lang=en"></script>
+
+    </div>
+</body>
+</html>
