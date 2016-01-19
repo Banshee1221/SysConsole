@@ -25,7 +25,7 @@
                         <img class="activator" src="{{ url_for('static', filename='img/svn.png') }}">
                     </div>
                     <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">Add SVN User<i class="material-icons right">more_vert</i></span>
+                        <span class="card-title activator grey-text text-darken-4">Add User<i class="material-icons right">more_vert</i></span>
                     </div>
                     <div class="card-reveal">
                         <span class="card-title grey-text text-darken-4">Add SVN User<i class="material-icons right">close</i></span>
@@ -61,13 +61,13 @@
                         <img class="activator" src="{{ url_for('static', filename='img/svn.png') }}">
                     </div>
                     <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">Passwd Change<i class="material-icons right">more_vert</i></span>
+                        <span class="card-title activator grey-text text-darken-4">Delete User<i class="material-icons right">more_vert</i></span>
                     </div>
                     <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">Passwd Change<i class="material-icons right">close</i></span>
+                        <span class="card-title grey-text text-darken-4">Delete SVN User<i class="material-icons right">close</i></span>
 
                         <div class="row">
-                            <form action="/consolePage/svnChange" id="svnChange" class="col s12" method="post">
+                            <form action="/consolePage/svnRem" id="svnRem" class="col s12" method="post">
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <input name="username" id="username" type="text" class="validate" required>
@@ -75,8 +75,24 @@
                                     </div>
                                 </div>
                             </form>
-                            <button style="float:right;"class="waves-effect waves-light btn" type="submit" form="svnChange" value="Submit">Search</button>
+                            <button style="float:right;"class="waves-effect waves-light btn" type="submit" form="svnRem" value="Submit">Search</button>
                         </div>
+
+                        <!-- <div class="row">
+                            <form action="/consolePage/svnRem" id="svnChange" class="col s12" method="post">
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <input name="username" id="username" type="text" class="validate" required>
+                                        <label for="first_name">First Name</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <input name="username" id="username" type="text" class="validate" required>
+                                        <label for="first_name">Last Name</label>
+                                    </div>
+                                </div>
+                            </form>
+                            <button style="float:right;"class="waves-effect waves-light btn" type="submit" form="svnChange" value="Submit">Search</button>
+                        </div> -->
 
                     </div>
                 </div>
