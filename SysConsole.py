@@ -1,13 +1,15 @@
 # ToDo: Exception handling
 # ToDo: Live display/update
 
-from flask import Flask, render_template, request, redirect, url_for
 import json
 import urllib2
+
+from flask import Flask, render_template, request, redirect, url_for
+
 from sshCommands import *
 
 app = Flask(__name__)
-main_url = "../img/canvas.png"
+main_url = "/static/img/canvas.png"
 
 
 @app.route('/')
@@ -16,14 +18,15 @@ def main():
     main_url = str(get_wp())
     print main_url
     if main_url == -1:
-        main_url = "../img/canvas.png"
+        main_url = "/static/img/canvas.png"
     return render_template('index.html', wallpaper=main_url)
 
 
 @app.route('/consolePage')
 def console():
     global main_url
-    return render_template('consolePage.html', wallpaper=main_url)
+    text = json.dumps(getSvnUsers())
+    return render_template('consolePage.html', wallpaper=main_url, text=text)
 
 
 @app.route('/consolePage/svnAdd', methods=['POST'])
@@ -88,7 +91,7 @@ def rem_svn_user():
 
 
 def get_wp():
-    url = 'http://www.reddit.com/r/earthporn/random.json'
+    url = 'https://www.reddit.com/r/MinimalWallpaper/random.json'
 
     try:
         hdr = { 'User-Agent' : 'Prettifier by /u/banshee1221' }
@@ -96,8 +99,9 @@ def get_wp():
         html = urllib2.urlopen(req).read()
         data = json.loads(html)
         wp = str(data[0]['data']['children'][0]['data']['url'])
+
         checker = wp.split(".")
-        print checker
+        # print checker
         if checker[-1].lower() != "jpg" and checker[-1].lower() != "png":
             newUrl = wp + ".jpg"
             return newUrl
@@ -106,6 +110,23 @@ def get_wp():
     except urllib2.URLError, e:
         print "Error getting url!"
         return -1
+
+
+def getSvnUsers():
+    usr, srv, command = "root", "cpt-svn-02", ""
+
+    print "Getting List of Users:"
+    print 'Executing command => grep -Eo "^[^ ]+" /svn/conf/passwd | grep -v "#"'
+
+    command = r'grep -Eo "^[^ ]+" /svn/conf/passwd | grep -v "#" | sed -n "1!p"'
+
+    out = ssh_exec_out(usr, srv, command)
+    out = out.splitlines()
+
+    print "... Done."
+
+    return out
+
 
 if __name__ == '__main__':
     app.run(debug=True)
