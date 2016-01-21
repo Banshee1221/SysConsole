@@ -12,6 +12,9 @@ app = Flask(__name__)
 main_url = "/static/img/canvas.png"
 
 
+# Main pages
+
+
 @app.route('/')
 def main():
     global main_url
@@ -27,6 +30,9 @@ def console():
     global main_url
     text = json.dumps(getSvnUsers())
     return render_template('consolePage.html', wallpaper=main_url, text=text)
+
+
+# SVN commands
 
 
 @app.route('/consolePage/svnAdd', methods=['POST'])
@@ -88,6 +94,54 @@ def rem_svn_user():
     print "User was removed."
 
     return redirect(url_for('console'))
+
+
+@app.route('/consolePage/svnMod', methods=['POST'])
+def mod_svn_user():
+    user = request.form.getlist('username')[0]
+    password = request.form.getlist('passwd')[0]
+    print "Got password."
+    print r"Executing => test=$(grep '" + str(user) + \
+          r"' /svn/conf/passwd | grep -Eo '([^ ]|\\ )*$'); sed -i 's/${test}/" + str(password) + r"/g' /svn/conf/passwd"
+
+    command_get = r"grep '" + str(user) + r"' /svn/conf/passwd | grep -Eo '([^ ]|\\ )*$'"
+    result = ssh_exec_out("root", "cpt-svn-02", command_get).strip()
+
+    command_change = r"sed -i 's/" + result + "/" + str(password) + r"/g' /svn/conf/passwd"
+    ssh_exec("root", "cpt-svn-02", command_change)
+
+    print "... Done."
+
+    return redirect(url_for('console'))
+
+
+@app.route('/consolePage/git01Add', methods=['POST'])
+def git_01_add_key():
+    print "Getting public key."
+    pubKey = request.form.getlist('pubKey')[0]
+    print "... Done."
+    command = r'echo "' + pubKey + '" >> ~/.ssh/authorized_keys'
+    print "Executing => " + str(command)
+    ssh_exec('root', 'cpt-git-01', command)
+    print "... Done."
+
+    return redirect(url_for('console'))
+
+
+@app.route('/consolePage/git02Add', methods=['POST'])
+def git_02_add_key():
+    print "Getting public key."
+    pubKey = request.form.getlist('pubKey')[0]
+    print "... Done."
+    command = r'echo "' + pubKey + '" >> ~/.ssh/authorized_keys'
+    print "Executing => " + str(command)
+    ssh_exec('root', 'cpt-git-02', command)
+    print "... Done."
+
+    return redirect(url_for('console'))
+
+
+# General
 
 
 def get_wp():

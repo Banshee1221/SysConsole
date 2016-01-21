@@ -1,0 +1,98 @@
+<div class="row">
+    <h1 class="col s12">Subversion Control</h1>
+</div>
+
+<div class="row">
+    <div class="col l4 m6 s12">
+        <div class="card" style="margin: 10px auto;">
+            <div class="card-image waves-effect waves-block waves-light">
+                <img class="activator" src="{{ url_for('static', filename='img/svn.png') }}">
+            </div>
+            <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4">Add User<i class="material-icons right">more_vert</i></span>
+            </div>
+            <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">Add SVN User<i
+                        class="material-icons right">close</i></span>
+                <div class="row">
+                    <form action="/consolePage/svnAdd" id="svnForm" class="col s12" method="post">
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input name="first_name" id="first_name" type="text" class="validate" required>
+                                <label for="first_name">First Name</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input name="last_name" id="last_name" type="text" class="validate" required>
+                                <label for="last_name">Last Name</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input name="password" id="password" type="password" class="validate" required>
+                                <label for="password">Password</label>
+                            </div>
+                        </div>
+                    </form>
+                    <button style="float:right;" class="waves-effect waves-light btn" type="submit" form="svnForm"
+                            value="Submit">Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col l4 m6 s12">
+        <div class="card" style="margin: 10px auto;">
+            <div class="card-image waves-effect waves-block waves-light">
+                <img class="activator" src="{{ url_for('static', filename='img/svn.png') }}">
+            </div>
+            <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4">Mod User<i
+                        class="material-icons right">more_vert</i></span>
+            </div>
+            <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">Mod SVN User<i
+                        class="material-icons right">close</i></span>
+
+                <script>parseStuff({{ text|safe }})</script>
+                <div class="row">
+                    <div id="dynamic" class="col s12">
+                        <div id="parse_svn" class="collection with-header">
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col l4 m6 s12">
+        <div class="card" style="margin: 10px auto;">
+            <div class="card-image waves-effect waves-block waves-light">
+                <img class="activator" src="{{ url_for('static', filename='img/svn.png') }}">
+            </div>
+            <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4">Delete User<i class="material-icons right">more_vert</i></span>
+            </div>
+            <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">Delete SVN User<i
+                        class="material-icons right">close</i></span>
+                <div class="row">
+                    <form action="/consolePage/svnRem" id="svnRem" class="col s12" method="post">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input name="username" id="username" type="text" class="validate" required>
+                                <label for="first_name">Username</label>
+                            </div>
+                        </div>
+                    </form>
+                    <button style="float:right;" class="waves-effect waves-light btn" type="submit" form="svnRem"
+                            value="Submit">Search
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

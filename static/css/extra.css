@@ -8,4 +8,7 @@
 
 #shrink {
     margin: 0 auto;
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
 }
