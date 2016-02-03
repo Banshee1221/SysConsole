@@ -118,24 +118,52 @@ def mod_svn_user():
 @app.route('/consolePage/git01Add', methods=['POST'])
 def git_01_add_key():
     print "Getting public key."
+    fname = request.form.getlist('first_name')[0]
+    lname = request.form.getlist('last_name')[0]
     pubKey = request.form.getlist('pubKey')[0]
+    command1 = r"cat /etc/passwd | awk -F: '{print $1}'"
+    comm1_out = ssh_exec_out('root', 'cpt-git-01', command1)
+    fullname = ("%s.%s" % (fname, lname)).lower().replace(" ", "")
+
+    if fullname not in comm1_out:
+        print "Creating user account."
+        addComm = "useradd -m -U -k /etc/skel -s /bin/bash %s" % (fullname)
+        ssh_exec('root', 'cpt-git-01', addComm)
+
     print "... Done."
-    command = r'echo "' + pubKey + '" >> ~/.ssh/authorized_keys'
-    print "Executing => " + str(command)
-    ssh_exec('root', 'cpt-git-01', command)
+    command2 = r'sed -i %s /home/git/.ssh/authorized_keys; echo command=\"/home/git/bin/gitolite-shell %s\",' \
+               r'no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty %s >> ' \
+               r'/home/git/.ssh/authorized_keys; echo "# gitolite end" >> /home/git/.ssh/authorized_keys' \
+               % ("'$d'", fullname, pubKey)
+    print "Executing => " + str(command2)
+    ssh_exec('root', 'cpt-git-01', command2)
     print "... Done."
 
     return redirect(url_for('console'))
 
 
-@app.route('/consolePage/git02Add', methods=['POST'])
-def git_02_add_key():
+@app.route('/consolePage/git03Add', methods=['POST'])
+def git_03_add_key():
     print "Getting public key."
+    fname = request.form.getlist('first_name')[0]
+    lname = request.form.getlist('last_name')[0]
     pubKey = request.form.getlist('pubKey')[0]
+    command1 = r"cat /etc/passwd | awk -F: '{print $1}'"
+    comm1_out = ssh_exec_out('root', 'cpt-git-01', command1)
+    fullname = ("%s.%s" % (fname, lname)).lower().replace(" ", "")
+
+    if fullname not in comm1_out:
+        print "Creating user account."
+        addComm = "useradd -m -U -k /etc/skel -s /bin/bash %s" % (fullname)
+        ssh_exec('root', 'cpt-git-03', addComm)
+
     print "... Done."
-    command = r'echo "' + pubKey + '" >> ~/.ssh/authorized_keys'
-    print "Executing => " + str(command)
-    ssh_exec('root', 'cpt-git-02', command)
+    command2 = r'sed -i %s /home/git/.ssh/authorized_keys; echo command=\"/usr/share/gitolite/gl-auth-command ' \
+               r'%s\",no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty %s >> ' \
+               r'/home/git/.ssh/authorized_keys; echo "# gitolite end" >> /home/git/.ssh/authorized_keys' \
+               % ("'$d'", fullname, pubKey)
+    print "Executing => " + str(command2)
+    ssh_exec('root', 'cpt-git-03', command2)
     print "... Done."
 
     return redirect(url_for('console'))
