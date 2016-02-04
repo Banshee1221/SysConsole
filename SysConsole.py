@@ -98,6 +98,7 @@ def rem_svn_user():
 
 @app.route('/consolePage/svnMod', methods=['POST'])
 def mod_svn_user():
+    usr, srv, command = "root", "cpt-svn-02", ""
     user = request.form.getlist('username')[0]
     password = request.form.getlist('passwd')[0]
     print "Got password."
@@ -105,10 +106,10 @@ def mod_svn_user():
           r"' /svn/conf/passwd | grep -Eo '([^ ]|\\ )*$'); sed -i 's/${test}/" + str(password) + r"/g' /svn/conf/passwd"
 
     command_get = r"grep '" + str(user) + r"' /svn/conf/passwd | grep -Eo '([^ ]|\\ )*$'"
-    result = ssh_exec_out("root", "cpt-svn-02", command_get).strip()
+    result = ssh_exec_out(usr, srv, command_get).strip()
 
     command_change = r"sed -i 's/" + result + "/" + str(password) + r"/g' /svn/conf/passwd"
-    ssh_exec("root", "cpt-svn-02", command_change)
+    ssh_exec(usr, srv, command_change)
 
     print "... Done."
 
@@ -117,18 +118,19 @@ def mod_svn_user():
 
 @app.route('/consolePage/git01Add', methods=['POST'])
 def git_01_add_key():
+    usr, srv = "root", "cpt-git-01"
     print "Getting public key."
     fname = request.form.getlist('first_name')[0]
     lname = request.form.getlist('last_name')[0]
     pubKey = request.form.getlist('pubKey')[0]
     command1 = r"cat /etc/passwd | awk -F: '{print $1}'"
-    comm1_out = ssh_exec_out('root', 'cpt-git-01', command1)
+    comm1_out = ssh_exec_out(usr, srv, command1)
     fullname = ("%s.%s" % (fname, lname)).lower().replace(" ", "")
 
     if fullname not in comm1_out:
         print "Creating user account."
         addComm = "useradd -m -U -k /etc/skel -s /bin/bash %s" % (fullname)
-        ssh_exec('root', 'cpt-git-01', addComm)
+        ssh_exec(usr, srv, addComm)
 
     print "... Done."
     command2 = r'sed -i %s /home/git/.ssh/authorized_keys; echo command=\"/home/git/bin/gitolite-shell %s\",' \
@@ -136,7 +138,7 @@ def git_01_add_key():
                r'/home/git/.ssh/authorized_keys; echo "# gitolite end" >> /home/git/.ssh/authorized_keys' \
                % ("'$d'", fullname, pubKey)
     print "Executing => " + str(command2)
-    ssh_exec('root', 'cpt-git-01', command2)
+    ssh_exec(usr, srv, command2)
     print "... Done."
 
     return redirect(url_for('console'))
@@ -144,18 +146,19 @@ def git_01_add_key():
 
 @app.route('/consolePage/git03Add', methods=['POST'])
 def git_03_add_key():
+    usr, srv = "root", "cpt-git-03"
     print "Getting public key."
     fname = request.form.getlist('first_name')[0]
     lname = request.form.getlist('last_name')[0]
     pubKey = request.form.getlist('pubKey')[0]
     command1 = r"cat /etc/passwd | awk -F: '{print $1}'"
-    comm1_out = ssh_exec_out('root', 'cpt-git-01', command1)
+    comm1_out = ssh_exec_out(usr, srv, command1)
     fullname = ("%s.%s" % (fname, lname)).lower().replace(" ", "")
 
     if fullname not in comm1_out:
         print "Creating user account."
         addComm = "useradd -m -U -k /etc/skel -s /bin/bash %s" % (fullname)
-        ssh_exec('root', 'cpt-git-03', addComm)
+        ssh_exec(usr, srv, addComm)
 
     print "... Done."
     command2 = r'sed -i %s /home/git/.ssh/authorized_keys; echo command=\"/usr/share/gitolite/gl-auth-command ' \
@@ -163,7 +166,7 @@ def git_03_add_key():
                r'/home/git/.ssh/authorized_keys; echo "# gitolite end" >> /home/git/.ssh/authorized_keys' \
                % ("'$d'", fullname, pubKey)
     print "Executing => " + str(command2)
-    ssh_exec('root', 'cpt-git-03', command2)
+    ssh_exec(usr, srv, command2)
     print "... Done."
 
     return redirect(url_for('console'))

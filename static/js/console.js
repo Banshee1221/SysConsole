@@ -3,6 +3,12 @@ var html_code_for_svn = '<li class="collection-header"><h5>Usernames</h5></li>';
 var username = '';
 
 $(document).ready(function () {
+    var width = screen.width;
+    var height = screen.height;
+    $("#blurcont").css("height", (height.toString() + "px"));
+    $("#blurcont").css("width", (width.toString() + "px"));
+    $("#bluree").css("height", (height.toString() + "px"));
+    $("#bluree").css("width", (width.toString() + "px"));
     $.each(userList, function (index, name) {
         //console.log(index + ": " + name);
         html_code_for_svn += "<li class='collection-item'><a id='" +

@@ -3,15 +3,11 @@ html,body {
 }
 
 #blurcont {
-    position:fixed;
-    height:100%;
-    width: 100%;
+    position: fixed;;
     z-index: -1;
 }
 
 #bluree {
-    height: 100%;
-    width: 100%;
     filter: blur(8px);
     -webkit-filter: blur(8px);
     -moz-filter: blur(8px);
